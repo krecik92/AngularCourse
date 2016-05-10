@@ -1,4 +1,4 @@
-<div class="col-sm-4">
+<!-- <div class="col-sm-4">
     <div class="panel panel-primary">
         <div class="panel-heading">
             <span>{{github.Repo[0].name}}</span> 
@@ -53,4 +53,25 @@
             </li>
         </div>
     </div>
+</div> -->
+
+<div class="col-sm-4">
+  <table class="table table-bordered table-hover table-striped">
+    <thead>
+        <tr>
+          <td>Fork count</td>
+          <td>Name</td>
+          <td>Link</td>
+        </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="repo in github.Repos | orderBy:'-forks_count'">
+        <td>{{repo.forks_count}}</td>
+        <td>{{repo.name}}</td>
+        <td>
+          <a class="btn btn-block btn-success" ng-href="{{repo.html_url}}" target="_blank">Link</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

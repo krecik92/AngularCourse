@@ -1,24 +1,25 @@
 export default class GitHubController {
-  constructor($http) {
-    this.$http = $http;
-    this.makeRequestRepo()
-    this.makeRequest();
+  constructor(GitHubService, $stateParams) {
+    
+    this.selectedUser = $stateParams.user;
+    
+    
+    GitHubService.getUser(this.selectedUser)
+      .then(this.handleGetUserSuccess.bind(this));
+    
+    GitHubService.getRepos(this.selectedUser)
+      .then(this.handleGetReposSuccess.bind(this));
+      
   }
   
-  makeRequest() {
-    this.$http.get('https://api.github.com/users/krecik92')
-      .then(this.assignToScope.bind(this));
-  }
-  makeRequestRepo() {
-    this.$http.get('https://api.github.com/users/krecik92/repos')
-      .then(this.assignToScopeRepo.bind(this));
-  }
-  assignToScope(response){
+  handleGetUserSuccess(response) {
     this.User = response.data;
-    console.log(this.User)
+    console.log(this.User);
   }
-  assignToScopeRepo(response){
-    this.Repo = response.data;
-    console.log(this.Repo)
+  
+  handleGetReposSuccess(response) {
+    this.Repos = response.data;
+    console.log(this.Repos);
   }
+ 
 }
